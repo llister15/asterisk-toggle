@@ -1,0 +1,60 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.content-wrap {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar {
+	padding-right:0;
+	margin-right: 0;
+}
+
+main {
+	padding-top: 15px;
+	padding-bottom: 20px; /* this needs to be bigger than footer height*/
+}
+
+.alert {
+    display: none;
+}
+
+.btn-outline-info {
+	width: 100px;
+}
+
+a i {
+	text-decoration: none;
+	color: rgba(0,0,0,.4);
+}
+
+.card-title {
+	background: #1b1e24;
+	font-weight: 200;
+	color: #fff;
+	padding: 25px;
+	margin: -20px;
+}
+
+.card-text {
+	margin-top: 50px;
+}
+
+.footer {
+	position: absolute;
+	height: 50px;
+	width: 100%;
+	bottom: 0;
+	padding-top: 15px;
+	color:#000;
+	background: #f8f9fa;
+}
