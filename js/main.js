@@ -11,6 +11,9 @@
 
 $( document ).ready(function() {
 
+	// Load the amount of options
+	newOptionNumber = $(':radio[name=selection]').length;
+	console.log(newOptionNumber);
 	// This ajax call is to set the current options on page load
 	$.ajax({
 	    url : 'inc/controlajax.php',
@@ -47,7 +50,8 @@ $( document ).ready(function() {
 	});
 
 	$( "#add-option" ).click(function( event ) {
-		this.preventDefault;
+		event.preventDefault;
+		console.log(newOptionNumber);
 		var maxOptions = 5;
 		if ( $(':radio[name=selection]').length > maxOptions ) {
 
@@ -61,21 +65,21 @@ $( document ).ready(function() {
 		} else {
 
 			$('#add-option-btn').click(function( event ) {
-			this.preventDefault;
-			var newOptionNumber = $(':radio[name=selection]').length + 1;
-			var newOptionName= $.trim( $( '#new-option-name' ).val() );
+				event.preventDefault;
+				var newOptionName= $.trim( $( '#new-option-name' ).val() );
 
-			$('#option-table tr:nth-last-child(2)').after( '<tr><th scope="row"><div class="form-check">\
-				<input class="form-check-input" type="radio" id="'+newOptionName+'" name="selection" value="'+newOptionName+'" >\
-				<label class="form-check-label" for="'+newOptionName+'">'+newOptionName+'</label></div></th>\
-				<td>\
-				<input name="option'+newOptionNumber+'" id="option'+newOptionNumber+'" type="hidden" value="'+newOptionName+'">\
-				<input name="value'+newOptionNumber+'" id="value'+newOptionNumber+'" type="text" class="form-control" placeholder="'+newOptionName+' #" maxlength="10">\
-				</td>\
-				<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
-			$('html, body').animate({ scrollTop:  $('#option-table tr:last').offset().top - 30 } );
-			//Clear input after adding the new option
-			$( '#new-option-name' ).val('');
+				$('#option-table tr:nth-last-child(4)').after( '<tr><th scope="row"><div class="form-check">\
+					<input class="form-check-input" type="radio" id="'+newOptionName+'" name="selection" value="'+newOptionName+'" >\
+					<label class="form-check-label" for="'+newOptionName+'">'+newOptionName+'</label></div></th>\
+					<td>\
+					<input name="option'+newOptionNumber+'" id="option'+newOptionNumber+'" type="hidden" value="'+newOptionName+'">\
+					<input name="value'+newOptionNumber+'" id="value'+newOptionNumber+'" type="text" class="form-control" placeholder="'+newOptionName+' #" maxlength="10">\
+					</td>\
+					<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
+				$('html, body').animate({ scrollTop:  $('#option-table tr:last').offset().top - 30 } );
+				//Clear input after adding the new option
+				$( '#new-option-name' ).val('');
+				newOptionNumber = newOptionNumber + 1;
 
 			});
 		}
