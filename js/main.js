@@ -12,8 +12,7 @@
 $( document ).ready(function() {
 
 	// Load the amount of options
-	newOptionNumber = $(':radio[name=selection]').length;
-	console.log(newOptionNumber);
+	newaddedOptionNumber = $(':radio[name=selection]').length - 1;
 	// This ajax call is to set the current options on page load
 	$.ajax({
 	    url : 'inc/controlajax.php',
@@ -22,26 +21,36 @@ $( document ).ready(function() {
 	        'onload' : 'loaded'
 	    },
 	    dataType:'text',
-	    success : function(data) { 
-	    	var output = JSON.parse(data);
-	    	var optionNumber = $(':radio[name=selection]').length + 1;
-	    	// On sucess load all options on page load          
-	        $('#'+output.selection).prop('checked',true);
-	        $('#eveningNumber').val(output.evening);
-	        $('#emergencyNumber').val(output.emergency);
-	        console.log(output);
-	        // for ( var i in output ) {
-	        // 	if ( output[i] === 'evening' || output[i] === 'emergency' || output[i] === 'schedule' || output[i] === '' ) {
-	        // 		console.log("return happening " +output[i] );
-	        // 	} else {
-	        // 		// console.log(output[i]);
-			      //   $('#option-table tr:nth-last-child(3)').after( '<tr><th scope="row"><div class="form-check">\
-			      //   	<input class="form-check-input" type="radio" id="'+output[i]+'" name="selection" value="'+output[i]+'">\
-			      //   	<label class="form-check-label" for="'+output[i]+'">'+output[i]+'</label></div></th>\
-			      //   	<td><input name="value'+optionNumber+'" id="value'+optionNumber+'" type="text" class="form-control" value="'+output[i]+'" maxlength="10"></td>\
-			      //   	<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
-	        // 	}
-	        // }
+	    success : function(data) {
+	    	if ("No data in database" !== data) {
+
+		    	var addedOptionNumber = $(':radio[name=selection]').length - 2;
+		    	var output = JSON.parse(data);
+		    	// On sucess load all options on page load          
+		        $('#'+output.selection).prop('checked',true);
+		        $('#eveningNumber').val(output.evening);
+		        $('#emergencyNumber').val(output.emergency);
+		        console.log(output);
+
+		        for ( var key in output ) {
+		        	if ( output[key] === 'evening' || output[key] === 'emergency' || output[key] === 'schedule' || output[key] === '' ) {
+		        		console.log("return happening " +output[key] );
+		        	} else {
+		        		console.log(key);
+		        		if ('id' !== key && 'selection' !== key) {
+					        $('#option-table tbody tr:last-child').after( '<tr><th scope="row"><div class="form-check">\
+					        	<input class="form-check-input" type="radio" id="'+key+'" name="'+key+'" value="'+output[key]+'" >\
+					        	<label class="form-check-label" for="'+key+'">'+key+'</label></div></th>\
+					        	<td>\
+					        	<input name="option'+key+'" id="option'+key+'" type="text" class="form-control" value="'+output[key]+'" placeholder="'+key+' #" maxlength="10">\
+					        	</td>\
+					        	<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
+		        		}
+		        	}
+		        }
+	    	} else {
+	    		console.log(data);
+	    	}
 	    },
 	    error : function(request,error) {
 	    	// Error message for bad ajax call
@@ -50,39 +59,42 @@ $( document ).ready(function() {
 	});
 
 	$( "#add-option" ).click(function( event ) {
-		event.preventDefault;
-		console.log(newOptionNumber);
-		var maxOptions = 5;
-		if ( $(':radio[name=selection]').length > maxOptions ) {
-
+		event.preventDefault();
+		var maxOptions = 8;
+		if ( newaddedOptionNumber > maxOptions ) {
+			$( "#add-option" ).prop( "disabled", true );
 			// When the max option limit is hit error message         
 		    $('.alert').text( "Sorry the max limit is " + maxOptions + " options" );
 		    $(".alert").fadeIn();
 		    setTimeout(function(){
 		      $(".alert").fadeOut(); 
 		    }, 3000);
+		    $('html, body').animate({ scrollTop:  $('body').offset().top + 30 } );
 			return;
 		} else {
-
-			$('#add-option-btn').click(function( event ) {
-				event.preventDefault;
-				var newOptionName= $.trim( $( '#new-option-name' ).val() );
-
-				$('#option-table tr:nth-last-child(4)').after( '<tr><th scope="row"><div class="form-check">\
-					<input class="form-check-input" type="radio" id="'+newOptionName+'" name="selection" value="'+newOptionName+'" >\
-					<label class="form-check-label" for="'+newOptionName+'">'+newOptionName+'</label></div></th>\
-					<td>\
-					<input name="option'+newOptionNumber+'" id="option'+newOptionNumber+'" type="hidden" value="'+newOptionName+'">\
-					<input name="value'+newOptionNumber+'" id="value'+newOptionNumber+'" type="text" class="form-control" placeholder="'+newOptionName+' #" maxlength="10">\
-					</td>\
-					<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
-				$('html, body').animate({ scrollTop:  $('#option-table tr:last').offset().top - 30 } );
-				//Clear input after adding the new option
-				$( '#new-option-name' ).val('');
-				newOptionNumber = newOptionNumber + 1;
-
-			});
+			$( "#add-option" ).removeProp( "disabled" );
 		}
+
+	});
+
+	$('#add-option-btn').click(function( event ) {
+		console.log(newaddedOptionNumber);
+		event.preventDefault();
+		var newOptionName= $.trim( $( '#new-option-name' ).val() );
+
+		$('#option-table tbody tr:last-child').after( '<tr><th scope="row"><div class="form-check">\
+			<input class="form-check-input" type="radio" id="'+newOptionName+'" name="'+newOptionName+'" value="'+newOptionName+'" >\
+			<label class="form-check-label" for="'+newOptionName+'">'+newOptionName+'</label></div></th>\
+			<td>\
+			<input name="option'+newaddedOptionNumber+'" id="option'+newaddedOptionNumber+'" type="text" class="form-control" placeholder="'+newOptionName+' #" maxlength="10">\
+			</td>\
+			<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
+		
+		$('html, body').animate({ scrollTop:  $('#option-table tr:last').offset().top - 30 } );
+		//Clear input after adding the new option
+		$( '#new-option-name' ).val('');
+		newaddedOptionNumber = newaddedOptionNumber + 1;
+
 	});
 
 	// This for the click event on the form
@@ -92,11 +104,18 @@ $( document ).ready(function() {
 	  	event.preventDefault();
 		var formData = $( this ).serializeArray();
 		var formObj = {};
+		formObj.options={};
 		// Load all form values into an object
 		$(formData).each(function(i, field){
-		  formObj[field.name] = field.value;
+			if ('selection' !== field.name && 'eveningNumber' !== field.name && 'emergencyNumber' !== field.name) {
+		  		formObj.options.push(field.name+":"+field.value);
+
+			} else {
+
+		  		formObj[field.name] = field.value;
+			}
 		});
-		console.log(formObj);
+		console.log(formObj.options);
 		// This ajax call is to load new or update all options in the database
 		$.ajax({
 		    url : 'inc/controlajax.php',
@@ -105,16 +124,12 @@ $( document ).ready(function() {
 		        'selection'   : formObj.selection,
 		        'evening'	  : formObj.eveningNumber,
 		        'emergency'	  : formObj.emergencyNumber,
-		        'option5'	  : formObj.option5,
-		        'value5'	  : formObj.value5,
-		        'option6'	  : formObj.option6,
-		        'value6'	  : formObj.value6,
-		        'option7'	  : formObj.option7,
-		        'value7'	  : formObj.value7
+		        'options'	  : formObj.options,
 		    },
 		    dataType:'text',
 		    success : function(data) {   
 		    	// On success load notification on the top           
+		        $('html, body').animate({ scrollTop:  $('body').offset().top + 30 } );
 		        $('.alert').text(data);
 		        $(".alert").fadeIn();
 		        setTimeout(function(){

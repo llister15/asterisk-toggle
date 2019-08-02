@@ -138,12 +138,14 @@ session_start();
 					    	      	<a href="#"><i class="fas fa-minus"></i></a>
 					    	      </td>
 					    	    </tr>
+					    	  </tbody>
+					    	  <tfoot>  
 					    	    <tr>
 					    	    	<td colspan="3">
 					    				<input type="submit" name="submit" id="submit" class="btn btn-md btn-outline-secondary">
 					    	  		</td>
 					    	  	</tr>
-					    	  </tbody>
+					    	  </tfoot>
 					    	</table>
 					    </form>
 					    <div class="row">

@@ -19,12 +19,7 @@ if ( isset( $_POST[ 'selection' ] ) ) {
 	$selection 	= ( empty( $_POST[ 'selection' ] ) ) ? 	'' : $_POST[ 'selection' ];
 	$evening 	= ( empty( $_POST[ 'evening' ] ) )	? 	'' : $_POST[ 'evening' ];
 	$emergency 	= ( empty( $_POST[ 'emergency' ] ) ) ?	'' : $_POST[ 'emergency' ];
-	$option3 	= ( empty( $_POST[ 'option3' ] ) )	? 	'' : $_POST[ 'option3' ];
-	$option4 	= ( empty( $_POST[ 'option4' ] ) )	? 	'' : $_POST[ 'option4' ];
-	$option5 	= ( empty( $_POST[ 'option5' ] ) )	? 	'' : $_POST[ 'option5' ];
-	$option6 	= ( empty( $_POST[ 'option6' ] ) )	? 	'' : $_POST[ 'option6' ];
-	$option7 	= ( empty( $_POST[ 'option7' ] ) )	? 	'' : $_POST[ 'option7' ];
-	$option8 	= ( empty( $_POST[ 'option8' ] ) )	? 	'' : $_POST[ 'option8' ];
+	$options 	= ( empty( $_POST[ 'options' ] ) )	? 	'' : $_POST[ 'options' ];
 
 	// Check if there are any records in the database
 	$checkquery = $db->query( "SELECT * FROM control WHERE id=1" );
@@ -41,12 +36,7 @@ if ( isset( $_POST[ 'selection' ] ) ) {
 				selection='$selection',
 				evening='$evening',
 				emergency='$emergency',
-				option3='$option3',
-				option4='$option4', 
-				option5='$option5', 
-				option6='$option6', 
-				option7='$option7', 
-				option8='$option8' 
+				options='$options'
 					WHERE id='1'";
 		
 		if ($db->query($sql) === TRUE) {
@@ -57,8 +47,8 @@ if ( isset( $_POST[ 'selection' ] ) ) {
 
 	} else {
 		
-		$sql = "INSERT INTO control ( id, selection, evening, emergency, option3, option4, option5, option6, option7, option8 )
-			VALUES ( '1', '$selection', '$evening', '$emergency', '$option3', '$option4', '$option5', '$option6', '$option7', '$option8' )"; 
+		$sql = "INSERT INTO control ( id, selection, evening, emergency, options )
+			VALUES ( '1', '$selection', '$evening', '$emergency', '$options')"; 
 
 		if ($db->query($sql) === TRUE) {
 		    echo "New record created successfully";
