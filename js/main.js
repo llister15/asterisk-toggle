@@ -30,13 +30,18 @@ $( document ).ready(function() {
 		        $('#'+output.selection).prop('checked',true);
 		        $('#eveningNumber').val(output.evening);
 		        $('#emergencyNumber').val(output.emergency);
-		        console.log(output);
-
 		        for ( var key in output ) {
-		        	if ( output[key] === 'evening' || output[key] === 'emergency' || output[key] === 'schedule' || output[key] === '' ) {
-		        		console.log("return happening " +output[key] );
+
+		        	if (  'id' !== key && 'evening' !== key && 'emergency' !== key && 'schedule' !== key && '' !== key) {
+		        		if ('options' === key) {
+		        			var optionsObj = output[key];
+		        			console.log(optionsObj);
+		        			
+		        			for (let option in optionsObj) {
+		        				// console.log(option);
+		        			}
+		        		}
 		        	} else {
-		        		console.log(key);
 		        		if ('id' !== key && 'selection' !== key) {
 					        $('#option-table tbody tr:last-child').after( '<tr><th scope="row"><div class="form-check">\
 					        	<input class="form-check-input" type="radio" id="'+key+'" name="'+key+'" value="'+output[key]+'" >\
@@ -49,7 +54,6 @@ $( document ).ready(function() {
 		        	}
 		        }
 	    	} else {
-	    		console.log(data);
 	    	}
 	    },
 	    error : function(request,error) {
@@ -78,7 +82,6 @@ $( document ).ready(function() {
 	});
 
 	$('#add-option-btn').click(function( event ) {
-		console.log(newaddedOptionNumber);
 		event.preventDefault();
 		var newOptionName= $.trim( $( '#new-option-name' ).val() );
 
@@ -86,7 +89,7 @@ $( document ).ready(function() {
 			<input class="form-check-input" type="radio" id="'+newOptionName+'" name="'+newOptionName+'" value="'+newOptionName+'" >\
 			<label class="form-check-label" for="'+newOptionName+'">'+newOptionName+'</label></div></th>\
 			<td>\
-			<input name="option'+newaddedOptionNumber+'" id="option'+newaddedOptionNumber+'" type="text" class="form-control" placeholder="'+newOptionName+' #" maxlength="10">\
+			<input name="'+newOptionName+'" id="'+newOptionName+'" type="text" class="form-control" placeholder="'+newOptionName+' #" maxlength="10">\
 			</td>\
 			<td class="text-center align-middle"><a href="#"><i class="fas fa-minus"></i></a></td></tr>');
 		
@@ -104,18 +107,20 @@ $( document ).ready(function() {
 	  	event.preventDefault();
 		var formData = $( this ).serializeArray();
 		var formObj = {};
-		formObj.options={};
+		formObj.options=[];
+		console.log(formData);
 		// Load all form values into an object
 		$(formData).each(function(i, field){
+			console.log(field);
 			if ('selection' !== field.name && 'eveningNumber' !== field.name && 'emergencyNumber' !== field.name) {
-		  		formObj.options.push(field.name+":"+field.value);
+		  		
+		  		formObj.options.push('{"name": "' + field.name + '", "value": "' + field.value + '"}');
 
 			} else {
 
 		  		formObj[field.name] = field.value;
 			}
 		});
-		console.log(formObj.options);
 		// This ajax call is to load new or update all options in the database
 		$.ajax({
 		    url : 'inc/controlajax.php',
@@ -124,7 +129,7 @@ $( document ).ready(function() {
 		        'selection'   : formObj.selection,
 		        'evening'	  : formObj.eveningNumber,
 		        'emergency'	  : formObj.emergencyNumber,
-		        'options'	  : formObj.options,
+		        'options'	  : JSON.stringify(formObj.options),
 		    },
 		    dataType:'text',
 		    success : function(data) {   
