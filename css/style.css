@@ -49,6 +49,10 @@ a i {
 	margin-top: 50px;
 }
 
+table th {
+	text-transform: capitalize;
+}
+
 .footer {
 	position: absolute;
 	height: 50px;
