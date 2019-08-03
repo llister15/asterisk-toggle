@@ -90,7 +90,6 @@ session_start();
 					    	  	  	<button type="button" class="btn btn-outline-info btn-sm" id="edit" data-toggle="modal" data-target="#scheduleModal">Edit</button>
 					    	  	  </td>
 					    	  	  <td class="text-center align-middle">
-					    	  	  	<a href="#"><i class="fas fa-minus"></i></a>
 					    	  	  </td>
 					    	  	</tr>
 					    	    <tr>
@@ -103,7 +102,6 @@ session_start();
 					    	      	</div>
 					    	      </th>
 					    	      	<td class="text-center align-middle">
-										<a href="#"><i class="fas fa-minus"></i></a>
 					    	      	</td>
 					    	    </tr>
 					    	    <tr>
@@ -119,7 +117,6 @@ session_start();
 					    	      	<input name="eveningNumber" id="eveningNumber" type="text" class="form-control" placeholder="Evening #" maxlength="10">
 					    	      </td>
 					    	      <td class="text-center align-middle">
-					    	      	<a href="#"><i class="fas fa-minus"></i></a>
 					    	      </td>
 					    	    </tr>
 					    	    <tr>
@@ -135,7 +132,6 @@ session_start();
 					    	      	<input name="emergencyNumber" id="emergencyNumber" type="text" class="form-control" placeholder="Emergency #" maxlength="10">
 					    	      </td>
 					    	      <td class="text-center align-middle">
-					    	      	<a href="#"><i class="fas fa-minus"></i></a>
 					    	      </td>
 					    	    </tr>
 					    	  </tbody>

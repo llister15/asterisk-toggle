@@ -14,6 +14,32 @@
 
 include 'dbconnect.php';
 
+if ( isset ( $_POST[ 'onload' ] ) ) {
+
+	$sql = $db->query("SELECT * FROM asterisk.control") or die($db->error);
+	$data = $sql->fetch_assoc();
+
+	if ( empty( $data ) ) {
+		echo "No data in database";
+	} else {
+		echo json_encode( $data );
+	}
+}
+
+if ( isset ( $_POST[ 'removeitem' ] ) ) {
+	$option = $_POST[ 'removeitem' ];
+	$sql = $db->query("SELECT options FROM asterisk.control") or die($db->error);
+	$data = $sql->fetch_assoc();
+
+	// $data = json_decode($data);
+	echo $data;
+	if ( empty( $data ) ) {
+		echo "No record to delete in database";
+	} else {
+		echo 'Option was deleted';
+	}
+}
+
 if ( isset( $_POST[ 'selection' ] ) ) {
 	
 	$selection 	= ( empty( $_POST[ 'selection' ] ) ) ? 	'' : $_POST[ 'selection' ];
@@ -55,17 +81,5 @@ if ( isset( $_POST[ 'selection' ] ) ) {
 		} else {
 		    echo "Error: " . $sql . "<br>" . $db->error;
 		}
-	}
-}
-
-if ( isset ( $_POST[ 'onload' ] ) ) {
-
-	$sql = $db->query("SELECT * FROM asterisk.control") or die($db->error);
-	$data = $sql->fetch_assoc();
-
-	if ( empty( $data ) ) {
-		echo "No data in database";
-	} else {
-		echo json_encode( $data );
 	}
 }
