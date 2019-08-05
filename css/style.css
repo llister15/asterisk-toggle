@@ -7,6 +7,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .content-wrap {
@@ -17,6 +18,14 @@ body {
 .navbar {
 	padding-right:0;
 	margin-right: 0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+	color:#fff;
+}
+
+.navbar-color {
+	background-color: #04ABD7;
 }
 
 main {
@@ -38,8 +47,7 @@ a i {
 }
 
 .card-title {
-	background: #1b1e24;
-	font-weight: 200;
+	background: #404040;
 	color: #fff;
 	padding: 25px;
 	margin: -20px;
@@ -59,6 +67,6 @@ table th {
 	width: 100%;
 	bottom: 0;
 	padding-top: 15px;
-	color:#000;
-	background: #f8f9fa;
+	color:#fff;
+	background: #0B213E;
 }

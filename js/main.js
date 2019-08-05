@@ -55,25 +55,27 @@ $(document).ready(function() {
                 });
 
                 $("td>a>.fa-minus").click(function(event) {
-                    var inputid = $('#' + $(this).attr('forid'));
+                    var inputid = $(this).attr('forid');
+                    var inputelement = $('#' + $(this).attr('forid'));
                     $.ajax({
                         url: 'inc/controlajax.php',
                         type: 'POST',
                         data: {
-                            'removeitem': inputid.val(),
+                            'removeitem': inputid,
                         },
                         dataType: 'text',
                         success: function(data) {
+                            console.log(data);
                             // On success load notification on the top           
-                            $('html, body').animate({
-                                scrollTop: $('body').offset().top + 30
-                            });
-                            $('.alert').text(data);
-                            $(".alert").fadeIn();
-                            setTimeout(function() {
-                                $(".alert").fadeOut();
-                            }, 3000);
-                            inputid.val('').parent().closest('tr').fadeOut();
+                            // $('html, body').animate({
+                            //     scrollTop: $('body').offset().top + 30
+                            // });
+                            // $('.alert').text(data);
+                            // $(".alert").fadeIn();
+                            // setTimeout(function() {
+                            //     $(".alert").fadeOut();
+                            // }, 3000);
+                            // inputelement.val('').parent().closest('tr').fadeOut();
                         },
                         error: function(request, error) {
                             // Error message for bad ajax call

@@ -12,74 +12,71 @@
  * @since      file available since Release 1.0.0
  */
 
-include 'dbconnect.php';
+require 'dbconnect.php';
 
-if ( isset ( $_POST[ 'onload' ] ) ) {
+if ( isset( $_POST['onload'] ) ) {
 
-	$sql = $db->query("SELECT * FROM asterisk.control") or die($db->error);
+	$sql  = $db->query( 'SELECT * FROM asterisk.control' ) or die( $db->error );
 	$data = $sql->fetch_assoc();
 
 	if ( empty( $data ) ) {
-		echo "No data in database";
+		echo 'No data in database';
 	} else {
 		echo json_encode( $data );
 	}
 }
 
-if ( isset ( $_POST[ 'removeitem' ] ) ) {
-	$option = $_POST[ 'removeitem' ];
-	$sql = $db->query("SELECT options FROM asterisk.control") or die($db->error);
-	$data = $sql->fetch_assoc();
+if ( isset( $_POST['removeitem'] ) ) {
+	$option = $_POST['removeitem'];
+	$sql    = $db->query( 'SELECT options FROM asterisk.control' ) or die( $db->error );
+	$data   = $sql->fetch_assoc();
 
-	// $data = json_decode($data);
-	echo $data;
-	if ( empty( $data ) ) {
-		echo "No record to delete in database";
-	} else {
-		echo 'Option was deleted';
-	}
+	echo implode( ' ', $data );
+	// $data = json_encode( $data );
+	// $obj  = json_decode( $data );
+
 }
 
-if ( isset( $_POST[ 'selection' ] ) ) {
-	
-	$selection 	= ( empty( $_POST[ 'selection' ] ) ) ? 	'' : $_POST[ 'selection' ];
-	$evening 	= ( empty( $_POST[ 'evening' ] ) )	? 	'' : $_POST[ 'evening' ];
-	$emergency 	= ( empty( $_POST[ 'emergency' ] ) ) ?	'' : $_POST[ 'emergency' ];
-	$options 	= ( empty( $_POST[ 'options' ] ) )	? 	'' : $_POST[ 'options' ];
+if ( isset( $_POST['selection'] ) ) {
+
+	$selection = ( empty( $_POST['selection'] ) ) ? '' : $_POST['selection'];
+	$evening   = ( empty( $_POST['evening'] ) ) ? '' : $_POST['evening'];
+	$emergency = ( empty( $_POST['emergency'] ) ) ? '' : $_POST['emergency'];
+	$options   = ( empty( $_POST['options'] ) ) ? '' : $_POST['options'];
 
 	// Check if there are any records in the database
-	$checkquery = $db->query( "SELECT * FROM control WHERE id=1" );
+	$checkquery = $db->query( 'SELECT * FROM control WHERE id=1' );
 
 	/**
 	 * If there are no records run code to add new record
 	 * else update the current record
+	 *
 	 * @author Louis Lister <llister@ztelco.com>
 	 * @since  1.0.0
 	 */
 	if ( $checkquery->num_rows > 0 ) {
-		
+
 		$sql = "UPDATE control SET 
 				selection='$selection',
 				evening='$evening',
 				emergency='$emergency',
 				options='$options'
 					WHERE id='1'";
-		
-		if ($db->query($sql) === TRUE) {
-		    echo "New record created successfully";
+
+		if ( $db->query( $sql ) === true ) {
+			echo 'New record created successfully';
 		} else {
-		    echo "Error: " . $sql . "<br>" . $db->error;
+			echo 'Error: ' . $sql . '<br>' . $db->error;
 		}
-
 	} else {
-		
-		$sql = "INSERT INTO control ( id, selection, evening, emergency, options )
-			VALUES ( '1', '$selection', '$evening', '$emergency', '$options')"; 
 
-		if ($db->query($sql) === TRUE) {
-		    echo "New record created successfully";
+		$sql = "INSERT INTO control ( id, selection, evening, emergency, options )
+			VALUES ( '1', '$selection', '$evening', '$emergency', '$options')";
+
+		if ( $db->query( $sql ) === true ) {
+			echo 'New record created successfully';
 		} else {
-		    echo "Error: " . $sql . "<br>" . $db->error;
+			echo 'Error: ' . $sql . '<br>' . $db->error;
 		}
 	}
 }
