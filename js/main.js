@@ -179,7 +179,7 @@ $(document).ready(function() {
             success: function(data) {
                 // On success load notification on the top           
                 $('html, body').animate({
-                    scrollTop: $('body').offset().top + 30
+                    scrollTop: $('body').offset().top + 20
                 });
                 $('.alert').text(data);
                 $(".alert").fadeIn();

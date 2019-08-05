@@ -31,7 +31,6 @@ if ( isset( $_POST['removeitem'] ) ) {
 	$sql    = $db->query( 'SELECT options FROM asterisk.control' ) or die( $db->error );
 	$data   = $sql->fetch_assoc();
 
-	echo implode( ' ', $data );
 	// $data = json_encode( $data );
 	// $obj  = json_decode( $data );
 
