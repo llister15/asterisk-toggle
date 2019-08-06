@@ -23,6 +23,7 @@ $(document).ready(function() {
         dataType: 'text',
         success: function(data) {
             if ("No data in database" !== data) {
+            	console.log(data);
                 var addedOptionNumber = $(':radio[name=selection]').length - 2;
                 var output = JSON.parse(data);
                 // On sucess load all options on page load          
@@ -154,17 +155,22 @@ $(document).ready(function() {
         var formData = $(this).serializeArray();
         var formObj = {};
         formObj.options = [];
+        formcounter = 0;
         // Load all form values into an object
         $(formData).each(function(i, field) {
             if ('selection' !== field.name && 'eveningNumber' !== field.name && 'emergencyNumber' !== field.name) {
 
-                formObj.options.push('{"' + field.name + '":"' + field.value + '"}');
+                formObj.options.push( field.name + ":" + field.value );
+
+                formcounter++;
 
             } else {
 
                 formObj[field.name] = field.value;
             }
         });
+        formObj.options[0] = "{"+formObj.options[0];
+        formObj.options[formcounter-1] = formObj.options[formcounter-1] + "}";
         // This ajax call is to load new or update all options in the database
         $.ajax({
             url: 'inc/controlajax.php',
@@ -173,7 +179,7 @@ $(document).ready(function() {
                 'selection': formObj.selection,
                 'evening': formObj.eveningNumber,
                 'emergency': formObj.emergencyNumber,
-                'options': JSON.stringify(formObj.options),
+                'options': formObj.options
             },
             dataType: 'text',
             success: function(data) {

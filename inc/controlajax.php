@@ -22,7 +22,8 @@ if ( isset( $_POST['onload'] ) ) {
 	if ( empty( $data ) ) {
 		echo 'No data in database';
 	} else {
-		echo json_encode( $data );
+		// echo json_encode( $data );
+		echo json_encode($data[options]);
 	}
 }
 
@@ -41,7 +42,7 @@ if ( isset( $_POST['selection'] ) ) {
 	$selection = ( empty( $_POST['selection'] ) ) ? '' : $_POST['selection'];
 	$evening   = ( empty( $_POST['evening'] ) ) ? '' : $_POST['evening'];
 	$emergency = ( empty( $_POST['emergency'] ) ) ? '' : $_POST['emergency'];
-	$options   = ( empty( $_POST['options'] ) ) ? '' : $_POST['options'];
+	$options   = ( empty( $_POST['options'] ) ) ? '' : json_encode( $_POST['options'] );
 
 	// Check if there are any records in the database
 	$checkquery = $db->query( 'SELECT * FROM control WHERE id=1' );
