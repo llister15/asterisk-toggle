@@ -15,7 +15,6 @@
 require 'dbconnect.php';
 
 if ( isset( $_POST['onload'] ) ) {
-
 	$sql  = $db->query( 'SELECT * FROM asterisk.control' ) or die( $db->error );
 	$data = $sql->fetch_assoc();
 
@@ -33,11 +32,9 @@ if ( isset( $_POST['removeitem'] ) ) {
 
 	// $data = json_encode( $data );
 	// $obj  = json_decode( $data );
-
 }
 
 if ( isset( $_POST['selection'] ) ) {
-
 	$selection = ( empty( $_POST['selection'] ) ) ? '' : $_POST['selection'];
 	$evening   = ( empty( $_POST['evening'] ) ) ? '' : $_POST['evening'];
 	$emergency = ( empty( $_POST['emergency'] ) ) ? '' : $_POST['emergency'];
@@ -54,7 +51,6 @@ if ( isset( $_POST['selection'] ) ) {
 	 * @since  1.0.0
 	 */
 	if ( $checkquery->num_rows > 0 ) {
-
 		$sql = "UPDATE control SET 
 				selection='$selection',
 				evening='$evening',
@@ -68,7 +64,6 @@ if ( isset( $_POST['selection'] ) ) {
 			echo 'Error: ' . $sql . '<br>' . $db->error;
 		}
 	} else {
-
 		$sql = "INSERT INTO control ( id, selection, evening, emergency, options )
 			VALUES ( '1', '$selection', '$evening', '$emergency', '$options')";
 

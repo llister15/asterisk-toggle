@@ -29,23 +29,15 @@ $(document).ready(function() {
                 $('#' + output.selection).prop('checked', true);
                 $('#eveningNumber').val(output.evening);
                 $('#emergencyNumber').val(output.emergency);
-
-                for (var key in output) {
-
-                    if ('options' === key) {
-                        var optionsObj = output[key].replace(/([\["])([["\]])/g, '');
-                        optionsObj = optionsObj.replace(/}","{/g, ',');
-                        optionsObj = JSON.parse(optionsObj);
-                        for (let option in optionsObj) {
-                            $('#option-table tbody tr:last-child').after('<tr><th scope="row"><div class="form-check">\
-	        					<input class="form-check-input" type="radio" id="' + option + '-radio" name="selection" value="' + option + '" >\
-	        					<label class="form-check-label" for="' + option + '">' + option + '</label></div></th>\
-	        					<td>\
-	        					<input name="' + option + '" id="' + option + '" type="text" class="form-control" placeholder="' + option + ' #" value="' + optionsObj[option] + '" maxlength="10">\
-	        					</td>\
-	        					<td class="text-center align-middle"><a href="#"><i class="fas fa-minus" forid="' + option + '"></i></a></td></tr>');
-                        }
-                    }
+                var options = JSON.parse( output.options );
+                for ( let option in options ) {
+                    $('#option-table tbody tr:last-child').after('<tr><th scope="row"><div class="form-check">\
+    					<input class="form-check-input" type="radio" id="' + option + '-radio" name="selection" value="' + option + '" >\
+    					<label class="form-check-label" for="' + option + '">' + option + '</label></div></th>\
+    					<td>\
+    					<input name="' + option + '" id="' + option + '" type="text" class="form-control" placeholder="' + option + ' #" value="' + options[option] + '" maxlength="10">\
+    					</td>\
+    					<td class="text-center align-middle"><a href="#"><i class="fas fa-minus" forid="' + option + '"></i></a></td></tr>');
                 }
 
                 $('input:radio').each(function() {
@@ -153,12 +145,12 @@ $(document).ready(function() {
         event.preventDefault();
         var formData = $(this).serializeArray();
         var formObj = {};
-        formObj.options = [];
+        formObj.options = {};
         // Load all form values into an object
         $(formData).each(function(i, field) {
             if ('selection' !== field.name && 'eveningNumber' !== field.name && 'emergencyNumber' !== field.name) {
 
-                formObj.options.push('{"' + field.name + '":"' + field.value + '"}');
+                formObj.options[field.name] = field.value;
 
             } else {
 
