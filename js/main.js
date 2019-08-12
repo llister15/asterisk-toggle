@@ -26,28 +26,32 @@ $(document).ready(function() {
             	console.log(data);
                 var addedOptionNumber = $(':radio[name=selection]').length - 2;
                 var output = JSON.parse(data);
+                var options = {};
                 // On sucess load all options on page load          
                 $('#' + output.selection).prop('checked', true);
                 $('#eveningNumber').val(output.evening);
                 $('#emergencyNumber').val(output.emergency);
-                var options = JSON.parse( output.options );
-                for ( let option in options ) {
-                    $('#option-table tbody tr:last-child').after('<tr>\
-                        <th scope="row">\
-                        <div class="form-check">\
-                        <input class="form-check-input" type="radio" id="' + option + '-radio" name="selection" value="' + option + '" >\
-                        <label class="form-check-label" for="' + option + '">' + option + '</label>\
-                        </div>\
-                        </th>\
-    					<td>\
-    					<input name="' + option + '" id="' + option + '" type="text" class="form-control" placeholder="' + option + ' #" value="' + options[option] + '" maxlength="10">\
-    					</td>\
-    					<td class="text-center align-middle">\
-                        <a href="#">\
-                        <i class="fas fa-minus" forid="' + option + '"></i>\
-                        </a>\
-                        </td>\
-                        </tr>');
+                if ( '' !== output.options ) 
+                {
+                    options = JSON.parse( output.options );
+                    for ( let option in options ) {
+                        $('#option-table tbody tr:last-child').after('<tr>\
+                            <th scope="row">\
+                            <div class="form-check">\
+                            <input class="form-check-input" type="radio" id="' + option + '-radio" name="selection" value="' + option + '" >\
+                            <label class="form-check-label" for="' + option + '">' + option + '</label>\
+                            </div>\
+                            </th>\
+        					<td>\
+        					<input name="' + option + '" id="' + option + '" type="text" class="form-control" placeholder="' + option + ' #" value="' + options[option] + '" maxlength="10">\
+        					</td>\
+        					<td class="text-center align-middle">\
+                            <a href="#">\
+                            <i class="fas fa-minus" forid="' + option + '"></i>\
+                            </a>\
+                            </td>\
+                            </tr>');
+                    }
                 }
 
                 $('input:radio').each(function() {
