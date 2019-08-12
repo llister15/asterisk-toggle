@@ -32,10 +32,16 @@ if ( isset( $_POST['removeitem'] ) ) {
 	$obj  = json_decode( $data['options'] );
 	unset( $obj->{$option} );
 	$count = count( (array) $obj );
-	$obj = json_encode( $obj );
-	$update = "UPDATE control SET 
-				options='$obj'
-					WHERE id='1'";
+	if ( $count > 0 ) :
+		$obj = json_encode( $obj );
+		$update = "UPDATE control SET 
+					options='$obj'
+						WHERE id='1'";
+	else :
+		$update = "UPDATE control SET 
+					options=''
+						WHERE id='1'";
+	endif;
 
 	if ( $db->query( $update ) === true ) {
 		if ( $count > 0 ) :
