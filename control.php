@@ -168,7 +168,53 @@ $config = parse_ini_file( 'inc/config.ini' );
 			</button>
 		  </div>
 		  <div class="modal-body">
-			...
+			<form action="/action_page.php">
+					<div class="selection-container">
+						<select name="rule_choice" class="custom-select">
+							<option selected>Please select</option>
+							<option value="">New Years</option>
+							<option value="">Thanksgiving</option>
+							<option value="">Christmas</option>
+							<option value="">Custom</option>
+						</select>
+					</div>
+					<hr>
+					<h4>Rules:</h4>
+					<div class="rule-fields-container">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Start</span>
+							</div>
+							<input type="date" name="start_date" class="form-control" placeholder="Date" />
+							<input type="time" name="start_time" class="form-control" placeholder="Time" />
+							</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">End</span>
+							</div>
+							<input type="date" name="end_date" class="form-control" placeholder="Date" />
+							<input type="time" name="end_time" class="form-control" placeholder="Time" />
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Week</span>
+							</div>
+							<input type="number" name="days_week" class="form-control" placeholder="Days of" />
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Month</span>
+							</div>
+							<input type="number" name="days_week" class="form-control" placeholder="Days of" />
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Year</span>
+							</div>
+							<input type="number" name="days_week" class="form-control" placeholder="Months of" />
+						</div>
+					</div>
+			</form>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-outline-danger">Save changes</button>
