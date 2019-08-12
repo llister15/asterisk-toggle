@@ -23,7 +23,6 @@ $(document).ready(function() {
         dataType: 'text',
         success: function(data) {
             if ("No data in database" !== data) {
-            	console.log(data);
                 var addedOptionNumber = $(':radio[name=selection]').length - 2;
                 var output = JSON.parse(data);
                 var options = {};
@@ -73,7 +72,6 @@ $(document).ready(function() {
                         },
                         dataType: 'text',
                         success: function(data) {
-                            console.log(data);
                             if ( input.parent().parent().parent().prop("tagName") === 'TR' ) 
                             {
                                 input.parent().parent().parent().remove();
@@ -178,9 +176,7 @@ $(document).ready(function() {
                 },
                 dataType: 'text',
                 success: function(data) {
-                    console.log(data);
-                    if ( input.parent().parent().parent().prop("tagName") === 'TR' ) 
-                    {
+                    if ( input.parent().parent().parent().prop("tagName") === 'TR' ) {
                         input.parent().parent().parent().remove();
                     }
                     // On success load notification on the top           
@@ -238,7 +234,6 @@ $(document).ready(function() {
                 $('html, body').animate({
                     scrollTop: $('body').offset().top + 20
                 });
-                console.log( data );
                 $('.alert').text(data);
                 $(".alert").fadeIn();
                 setTimeout(function() {

@@ -65,7 +65,7 @@ $config = parse_ini_file( 'inc/config.ini' );
 						<h5 class="card-title text-center">Main Number Flow</h5>
 						<p class="card-text text-center">Control System Options <br />
 								This system does not support spaces <br />
-								All number numbers must be in a 10 digit format <br />
+								All numbers must be in a 10 digit format <br />
 								[ ########## ] <br />
 						</p>
 						<form id="myForm">
