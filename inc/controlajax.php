@@ -29,9 +29,25 @@ if ( isset( $_POST['removeitem'] ) ) {
 	$option = $_POST['removeitem'];
 	$sql    = $db->query( 'SELECT options FROM asterisk.control' ) or die( $db->error );
 	$data   = $sql->fetch_assoc();
+	$obj  = json_decode( $data['options'] );
+	unset( $obj->{$option} );
+	$count = count( (array) $obj );
+	$obj = json_encode( $obj );
+	$update = "UPDATE control SET 
+				options='$obj'
+					WHERE id='1'";
 
-	// $data = json_encode( $data );
-	// $obj  = json_decode( $data );
+	if ( $db->query( $update ) === true ) {
+		if ( $count > 0 ) :
+			echo 'Options updated successfully. New options: ';
+			echo $obj;
+		else :
+			echo 'Options updated successfully. Options are now empty';
+		endif;
+	} else {
+		echo 'Error: ' . $update . '<br>' . $db->error;
+		echo $obj;
+	}
 }
 
 if ( isset( $_POST['selection'] ) ) {

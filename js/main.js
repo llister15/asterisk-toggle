@@ -23,6 +23,7 @@ $(document).ready(function() {
         dataType: 'text',
         success: function(data) {
             if ("No data in database" !== data) {
+            	console.log(data);
                 var addedOptionNumber = $(':radio[name=selection]').length - 2;
                 var output = JSON.parse(data);
                 // On sucess load all options on page load          
@@ -31,13 +32,22 @@ $(document).ready(function() {
                 $('#emergencyNumber').val(output.emergency);
                 var options = JSON.parse( output.options );
                 for ( let option in options ) {
-                    $('#option-table tbody tr:last-child').after('<tr><th scope="row"><div class="form-check">\
-    					<input class="form-check-input" type="radio" id="' + option + '-radio" name="selection" value="' + option + '" >\
-    					<label class="form-check-label" for="' + option + '">' + option + '</label></div></th>\
+                    $('#option-table tbody tr:last-child').after('<tr>\
+                        <th scope="row">\
+                        <div class="form-check">\
+                        <input class="form-check-input" type="radio" id="' + option + '-radio" name="selection" value="' + option + '" >\
+                        <label class="form-check-label" for="' + option + '">' + option + '</label>\
+                        </div>\
+                        </th>\
     					<td>\
     					<input name="' + option + '" id="' + option + '" type="text" class="form-control" placeholder="' + option + ' #" value="' + options[option] + '" maxlength="10">\
     					</td>\
-    					<td class="text-center align-middle"><a href="#"><i class="fas fa-minus" forid="' + option + '"></i></a></td></tr>');
+    					<td class="text-center align-middle">\
+                        <a href="#">\
+                        <i class="fas fa-minus" forid="' + option + '"></i>\
+                        </a>\
+                        </td>\
+                        </tr>');
                 }
 
                 $('input:radio').each(function() {
@@ -47,6 +57,8 @@ $(document).ready(function() {
                 });
 
                 $("td>a>.fa-minus").click(function(event) {
+                    event.stopPropagation();
+                    var input = $(this);
                     var inputid = $(this).attr('forid');
                     var inputelement = $('#' + $(this).attr('forid'));
                     $.ajax({
@@ -58,6 +70,10 @@ $(document).ready(function() {
                         dataType: 'text',
                         success: function(data) {
                             console.log(data);
+                            if ( input.parent().parent().parent().prop("tagName") === 'TR' ) 
+                            {
+                                input.parent().parent().parent().remove();
+                            }
                             // On success load notification on the top           
                             // $('html, body').animate({
                             //     scrollTop: $('body').offset().top + 30
@@ -118,13 +134,22 @@ $(document).ready(function() {
         event.preventDefault();
         var newOptionName = $.trim($('#new-option-name').val());
 
-        $('#option-table tbody tr:last-child').after('<tr><th scope="row"><div class="form-check">\
+        $('#option-table tbody tr:last-child').after('<tr>\
+            <th scope="row">\
+            <div class="form-check">\
 			<input class="form-check-input" type="radio" id="' + newOptionName + '-radio" name="selection" value="' + newOptionName + '" >\
-			<label class="form-check-label" for="' + newOptionName + '">' + newOptionName + '</label></div></th>\
+			<label class="form-check-label" for="' + newOptionName + '">' + newOptionName + '</label>\
+            </div>\
+            </th>\
 			<td>\
 			<input name="' + newOptionName + '" id="' + newOptionName + '" type="text" class="form-control" placeholder="' + newOptionName + ' #" maxlength="10">\
 			</td>\
-			<td class="text-center align-middle"><a href="#"><i class="fas fa-minus" forid="' + newOptionName + '"></i></a></td></tr>');
+			<td class="text-center align-middle">\
+            <a href="#">\
+            <i class="fas fa-minus" forid="' + newOptionName + '"></i>\
+            </a>\
+            </td>\
+            </tr>');
 
         $('html, body').animate({
             scrollTop: $('#option-table tr:last').offset().top - 30
@@ -135,6 +160,42 @@ $(document).ready(function() {
         setTimeout(function() {
             $('#' + newOptionName).focus();
         }, 800);
+
+        $("td>a>.fa-minus").click(function(event) {
+            event.stopPropagation();
+            var input = $(this);
+            var inputid = $(this).attr('forid');
+            var inputelement = $('#' + $(this).attr('forid'));
+            $.ajax({
+                url: 'inc/controlajax.php',
+                type: 'POST',
+                data: {
+                    'removeitem': inputid,
+                },
+                dataType: 'text',
+                success: function(data) {
+                    console.log(data);
+                    if ( input.parent().parent().parent().prop("tagName") === 'TR' ) 
+                    {
+                        input.parent().parent().parent().remove();
+                    }
+                    // On success load notification on the top           
+                    // $('html, body').animate({
+                    //     scrollTop: $('body').offset().top + 30
+                    // });
+                    // $('.alert').text(data);
+                    // $(".alert").fadeIn();
+                    // setTimeout(function() {
+                    //     $(".alert").fadeOut();
+                    // }, 3000);
+                    // inputelement.val('').parent().closest('tr').fadeOut();
+                },
+                error: function(request, error) {
+                    // Error message for bad ajax call
+                    console.log("Request: " + JSON.stringify(request));
+                }
+            });
+        });
 
     });
 
@@ -165,7 +226,7 @@ $(document).ready(function() {
                 'selection': formObj.selection,
                 'evening': formObj.eveningNumber,
                 'emergency': formObj.emergencyNumber,
-                'options': JSON.stringify(formObj.options),
+                'options': JSON.stringify( formObj.options )
             },
             dataType: 'text',
             success: function(data) {
@@ -173,6 +234,7 @@ $(document).ready(function() {
                 $('html, body').animate({
                     scrollTop: $('body').offset().top + 20
                 });
+                console.log( data );
                 $('.alert').text(data);
                 $(".alert").fadeIn();
                 setTimeout(function() {
