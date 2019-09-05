@@ -159,7 +159,7 @@ $config = parse_ini_file( 'inc/config.ini' );
 
 	<!-- Modal -->
 	<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
 			<h5 class="modal-title" id="scheduleModalLabel">Main Number Flow (edit)</h5>
@@ -168,55 +168,62 @@ $config = parse_ini_file( 'inc/config.ini' );
 			</button>
 		  </div>
 		  <div class="modal-body">
-			<form action="/action_page.php">
-					<div class="selection-container">
-						<select name="rule_choice" class="custom-select">
-							<option selected>Please select</option>
-							<option value="">New Years</option>
-							<option value="">Thanksgiving</option>
-							<option value="">Christmas</option>
-							<option value="">Custom</option>
-						</select>
-					</div>
-					<hr>
-					<h4>Rules:</h4>
-					<div class="rule-fields-container">
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Start</span>
+		  	<div class="row">
+			  	<div class="col text-center">
+				  	<button class="btn btn-md btn-outline-primary">Add</button>
+				  	<i class="fa fa-long-arrow-alt-right"></i>
+				</div>
+				<div class="col text-center">
+				  	<div class="card">
+				  	  <div class="card-body">
+				  	    <h5 class="card-title">Holiday</h5>
+				  	    <p class="card-text">Date/Time Range</p>
+				  	  </div>
+				  	</div>
+				 </div>
+				 <i class="fa fa-long-arrow-alt-right"></i>
+				<div class="col-md-4">
+					<form action="/action_page.php">
+						<h4>Rules:</h4>
+						<div class="rule-fields-container">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Start</span>
+								</div>
+								<input type="date" name="start_date" class="form-control" placeholder="Date" />
+								<input type="time" name="start_time" class="form-control" placeholder="Time" />
+								</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">End</span>
+								</div>
+								<input type="date" name="end_date" class="form-control" placeholder="Date" />
+								<input type="time" name="end_time" class="form-control" placeholder="Time" />
 							</div>
-							<input type="date" name="start_date" class="form-control" placeholder="Date" />
-							<input type="time" name="start_time" class="form-control" placeholder="Time" />
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Week</span>
+								</div>
+								<input type="number" name="days_week" class="form-control" placeholder="Days of" />
 							</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">End</span>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Month</span>
+								</div>
+								<input type="number" name="days_week" class="form-control" placeholder="Days of" />
 							</div>
-							<input type="date" name="end_date" class="form-control" placeholder="Date" />
-							<input type="time" name="end_time" class="form-control" placeholder="Time" />
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Year</span>
+								</div>
+								<input type="number" name="days_week" class="form-control" placeholder="Months of" />
+							</div>
 						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Week</span>
-							</div>
-							<input type="number" name="days_week" class="form-control" placeholder="Days of" />
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Month</span>
-							</div>
-							<input type="number" name="days_week" class="form-control" placeholder="Days of" />
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Year</span>
-							</div>
-							<input type="number" name="days_week" class="form-control" placeholder="Months of" />
-						</div>
-					</div>
-			</form>
+					</form>
+		  		</div>
+		  	</div>
 		  </div>
-		  <div class="modal-footer">
+		  <div class="modal-footer text-left">
 			<button type="button" class="btn btn-outline-danger">Save changes</button>
 		  </div>
 		</div>

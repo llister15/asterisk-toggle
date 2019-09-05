@@ -41,6 +41,10 @@ main {
 	width: 100px;
 }
 
+.fa-long-arrow-alt-right {
+	padding-left: 25px;
+}
+
 a i {
 	text-decoration: none;
 	color: rgba(0,0,0,.4);
