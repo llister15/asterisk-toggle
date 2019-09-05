@@ -159,7 +159,7 @@ $config = parse_ini_file( 'inc/config.ini' );
 
 	<!-- Modal -->
 	<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+	  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
 			<h5 class="modal-title" id="scheduleModalLabel">Main Number Flow (edit)</h5>
@@ -169,10 +169,10 @@ $config = parse_ini_file( 'inc/config.ini' );
 		  </div>
 		  <div class="modal-body">
 		  	<div class="row">
-			  	<div class="col text-center">
+			  	<div class="col-md-1 text-center">
 				  	<button class="btn btn-md btn-outline-primary">Add</button>
-				  	<i class="fa fa-long-arrow-alt-right"></i>
 				</div>
+				  	<i class="fa fa-long-arrow-alt-right"></i>
 				<div class="col text-center">
 				  	<div class="card">
 				  	  <div class="card-body">
@@ -181,7 +181,16 @@ $config = parse_ini_file( 'inc/config.ini' );
 				  	  </div>
 				  	</div>
 				 </div>
-				 <i class="fa fa-long-arrow-alt-right"></i>
+				 	<i class="fa fa-long-arrow-alt-right"></i>
+				 <div class="col text-center">
+				   	<div class="card">
+				   	  <div class="card-body">
+				   	    <h5 class="card-title">Business Hours</h5>
+				   	    <p class="card-text">Date/Time Range</p>
+				   	  </div>
+				   	</div>
+				  </div>
+				  	<i class="fa fa-long-arrow-alt-right"></i>
 				<div class="col-md-4">
 					<form action="/action_page.php">
 						<h4>Rules:</h4>
@@ -220,6 +229,11 @@ $config = parse_ini_file( 'inc/config.ini' );
 							</div>
 						</div>
 					</form>
+		  		</div>
+		  	</div>
+		  	<div class="row justify-content-md-center">
+		  		<div class="col-md-3">
+		  			<button class="btn btn-xl btn-outline-secondary">Pick a sequence</button>
 		  		</div>
 		  	</div>
 		  </div>
