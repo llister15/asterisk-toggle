@@ -57,6 +57,7 @@ if ( isset( $_POST['removeitem'] ) ) {
 }
 
 if ( isset( $_POST['selection'] ) ) {
+	$schedule = ( empty( $_POST['schedule'] ) ) ? '' : $_POST['schedule'];
 	$selection = ( empty( $_POST['selection'] ) ) ? '' : $_POST['selection'];
 	$evening   = ( empty( $_POST['evening'] ) ) ? '' : $_POST['evening'];
 	$emergency = ( empty( $_POST['emergency'] ) ) ? '' : $_POST['emergency'];
@@ -74,6 +75,7 @@ if ( isset( $_POST['selection'] ) ) {
 	 */
 	if ( $checkquery->num_rows > 0 ) {
 		$sql = "UPDATE control SET 
+				schedule='$schedule',
 				selection='$selection',
 				evening='$evening',
 				emergency='$emergency',
@@ -86,8 +88,8 @@ if ( isset( $_POST['selection'] ) ) {
 			echo 'Error: ' . $sql . '<br>' . $db->error;
 		}
 	} else {
-		$sql = "INSERT INTO control ( id, selection, evening, emergency, options )
-			VALUES ( '1', '$selection', '$evening', '$emergency', '$options')";
+		$sql = "INSERT INTO control ( id, schedule, selection, evening, emergency, options )
+			VALUES ( '1', '$schedule', '$selection', '$evening', '$emergency', '$options')";
 
 		if ( $db->query( $sql ) === true ) {
 			echo 'New record created successfully';
